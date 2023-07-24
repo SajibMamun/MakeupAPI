@@ -1,4 +1,4 @@
-package com.example.productapiretrofit
+package com.example.productapiretrofit.API
 
 import com.example.productapiretrofit.dataclass.ResponseProduct
 import retrofit2.Call
