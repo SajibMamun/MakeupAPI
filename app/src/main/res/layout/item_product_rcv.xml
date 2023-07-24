@@ -76,7 +76,6 @@
                     android:layout_height="wrap_content"
                     android:text="Visit Website"
                     android:layout_gravity="center_horizontal"
-                    android:onClick="openWebsite"
                     android:layout_marginTop="16dp" />
 
             </LinearLayout>
