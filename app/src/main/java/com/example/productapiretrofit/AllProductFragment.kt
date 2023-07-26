@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.productapiretrofit.API.RetrofitClient
 import com.example.productapiretrofit.databinding.FragmentAllProductBinding
 import com.example.productapiretrofit.dataclass.ResponseProduct
@@ -16,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class AllProductFragment : Fragment() {
+class AllProductFragment : Fragment(),ProductAdapter.ProductListener {
     lateinit var binding: FragmentAllProductBinding
 
     lateinit var adapter: ProductAdapter
@@ -30,35 +31,11 @@ class AllProductFragment : Fragment() {
         binding= FragmentAllProductBinding.inflate(inflater,container,false)
 
 //Rcv Adapter
-        adapter=ProductAdapter()
+        adapter=ProductAdapter(this)
         binding.ProductRCV.adapter=adapter
 
 
 
-
-        var CallApiServiceById=RetrofitClient.service.getProductsById(1048)
-
-
-        CallApiServiceById.enqueue(object : Callback<ResponseProductItem> {
-            override fun onFailure(call: Call<ResponseProductItem>?, t: Throwable?) {
-
-
-                if (t != null) {
-                    Toast.makeText(requireContext(),"${t.message}",Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onResponse(call: Call<ResponseProductItem>?, response: Response<ResponseProductItem>?) {
-                if (response != null) {
-                    if(response.code()==200) {
-
-                        Log.i("sd","${response.body()}")
-
-                    }
-                }
-            }
-
-        })
 
 
 
@@ -97,5 +74,13 @@ class AllProductFragment : Fragment() {
 
     companion object {
 
+    }
+
+    override fun productClickedListener(productId: Int) {
+
+
+        var bundle=Bundle()
+        bundle.putInt(DetailsFragment.PRODUCT_KEY,productId)
+        findNavController().navigate(R.id.action_allProductFragment_to_detailsFragment,bundle)
     }
 }

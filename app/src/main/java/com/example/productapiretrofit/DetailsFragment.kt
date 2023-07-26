@@ -1,59 +1,72 @@
 package com.example.productapiretrofit
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.productapiretrofit.API.RetrofitClient
+import com.example.productapiretrofit.databinding.FragmentDetailsBinding
+import com.example.productapiretrofit.dataclass.ResponseProductItem
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentDetailsBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false)
+        binding = FragmentDetailsBinding.inflate(inflater, container, false)
+
+
+var ProductID=requireArguments().getInt(PRODUCT_KEY)
+
+        var CallApiServiceById= RetrofitClient.service.getProductsById(ProductID)
+
+
+        CallApiServiceById.enqueue(object : Callback<ResponseProductItem> {
+            override fun onFailure(call: Call<ResponseProductItem>?, t: Throwable?) {
+
+
+                if (t != null) {
+                    Toast.makeText(requireContext(),"${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call<ResponseProductItem>?, response: Response<ResponseProductItem>?) {
+                if (response != null) {
+                    if(response.code()==200) {
+
+                        var product=response.body()
+
+
+
+
+
+
+
+                    }
+                }
+            }
+
+        })
+
+
+
+
+
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+        const val PRODUCT_KEY="productid"
+
     }
 }
+

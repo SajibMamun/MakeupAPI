@@ -2,17 +2,21 @@ package com.example.productapiretrofit
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.productapiretrofit.databinding.ItemProductRcvBinding
-import com.example.productapiretrofit.databinding.ItemlayoutdesignBinding
-import com.example.productapiretrofit.dataclass.ResponseProduct
 import com.example.productapiretrofit.dataclass.ResponseProductItem
 
-class ProductAdapter:androidx.recyclerview.widget.ListAdapter<ResponseProductItem,ProductAdapter.ProductViewHolder> (
+class ProductAdapter(var prdouctListener:ProductListener):androidx.recyclerview.widget.ListAdapter<ResponseProductItem,ProductAdapter.ProductViewHolder> (
     COMPARATOR){
+
+
+
+
+    interface ProductListener{
+        fun productClickedListener(productId:Int)
+    }
 
     class ProductViewHolder(var binding: ItemProductRcvBinding):
             RecyclerView.ViewHolder(binding.root)
@@ -30,6 +34,9 @@ class ProductAdapter:androidx.recyclerview.widget.ListAdapter<ResponseProductIte
                 productImage.load(it.imageLink)
                 productPrice.text="${it.priceSign} ${it.price} ${it.currency}"
 
+                holder.itemView.setOnClickListener {
+                    prdouctListener.productClickedListener(it.id!!)
+                }
 
             }
         }
