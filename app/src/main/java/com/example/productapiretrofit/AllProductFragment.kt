@@ -1,6 +1,7 @@
 package com.example.productapiretrofit
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import com.example.productapiretrofit.API.RetrofitClient
 import com.example.productapiretrofit.databinding.FragmentAllProductBinding
 import com.example.productapiretrofit.dataclass.ResponseProduct
+import com.example.productapiretrofit.dataclass.ResponseProductItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +32,38 @@ class AllProductFragment : Fragment() {
 //Rcv Adapter
         adapter=ProductAdapter()
         binding.ProductRCV.adapter=adapter
+
+
+
+
+        var CallApiServiceById=RetrofitClient.service.getProductsById(1048)
+
+
+        CallApiServiceById.enqueue(object : Callback<ResponseProductItem> {
+            override fun onFailure(call: Call<ResponseProductItem>?, t: Throwable?) {
+
+
+                if (t != null) {
+                    Toast.makeText(requireContext(),"${t.message}",Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call<ResponseProductItem>?, response: Response<ResponseProductItem>?) {
+                if (response != null) {
+                    if(response.code()==200) {
+
+                        Log.i("sd","${response.body()}")
+
+                    }
+                }
+            }
+
+        })
+
+
+
+
+
 
 
         var CallApiService=RetrofitClient.service.getAllProducts()
