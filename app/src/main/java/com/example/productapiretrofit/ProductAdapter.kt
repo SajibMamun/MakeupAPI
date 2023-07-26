@@ -34,7 +34,7 @@ class ProductAdapter(var prdouctListener:ProductListener):androidx.recyclerview.
                 productImage.load(it.imageLink)
                 productPrice.text="${it.priceSign} ${it.price} ${it.currency}"
 
-                holder.itemView.setOnClickListener {
+                holder.itemView.setOnClickListener {_->
                     prdouctListener.productClickedListener(it.id!!)
                 }
 

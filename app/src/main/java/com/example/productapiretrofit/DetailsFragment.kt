@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import coil.load
 import com.example.productapiretrofit.API.RetrofitClient
 import com.example.productapiretrofit.databinding.FragmentDetailsBinding
 import com.example.productapiretrofit.dataclass.ResponseProductItem
@@ -43,6 +44,18 @@ var ProductID=requireArguments().getInt(PRODUCT_KEY)
                     if(response.code()==200) {
 
                         var product=response.body()
+
+
+                        binding.apply {
+
+                            if (product != null) {
+                                productName.text=product.name
+                                productDescription.text=product.description
+                                productImage.load(product.imageLink)
+                                productPrice.text="${product.priceSign} ${product.price} ${product.currency}"
+                                productTags.text=product.tagList.toString()
+                            }
+                        }
 
 
 
