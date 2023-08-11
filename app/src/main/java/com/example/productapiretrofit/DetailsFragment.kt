@@ -11,11 +11,12 @@ import coil.load
 import com.example.productapiretrofit.API.RetrofitClient
 import com.example.productapiretrofit.databinding.FragmentDetailsBinding
 import com.example.productapiretrofit.dataclass.ResponseProductItem
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
     lateinit var binding: FragmentDetailsBinding
 
