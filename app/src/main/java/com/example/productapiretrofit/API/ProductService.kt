@@ -3,13 +3,14 @@ package com.example.productapiretrofit.API
 import com.example.productapiretrofit.dataclass.ResponseProduct
 import com.example.productapiretrofit.dataclass.ResponseProductItem
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ProductService {
 
     @GET("products.json")
-    fun getAllProducts():Call<ResponseProduct>
+     suspend fun getAllProducts():Response<ResponseProduct> //make the function suspend
 
 
 //for getspecific product

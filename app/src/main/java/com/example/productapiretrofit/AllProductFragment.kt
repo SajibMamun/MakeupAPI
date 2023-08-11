@@ -50,28 +50,6 @@ class AllProductFragment: Fragment(),ProductAdapter.ProductListener {
 
         var CallApiService=service.getAllProducts()
 
-        CallApiService.enqueue(object : Callback<ResponseProduct> {
-            override fun onFailure(call: Call<ResponseProduct>?, t: Throwable?) {
-
-
-                if (t != null) {
-                    Toast.makeText(requireContext(),"${t.message}",Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onResponse(call: Call<ResponseProduct>?, response: Response<ResponseProduct>?) {
-                if (response != null) {
-                    if(response.code()==200) {
-
-                        adapter.submitList(response.body())
-
-
-
-                    }
-                }
-            }
-
-        })
 
 
         return binding.root
