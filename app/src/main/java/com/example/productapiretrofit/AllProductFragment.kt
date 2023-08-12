@@ -74,6 +74,17 @@ productlist.observe(viewLifecycleOwner){
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
     override fun productClickedListener(productId: Int) {
 
 
